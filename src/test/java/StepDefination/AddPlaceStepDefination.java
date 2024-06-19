@@ -56,7 +56,7 @@ public class AddPlaceStepDefination extends Utils{
 	//here we are printing the resource we are trying to use based upon the keyword we have used in the feature file. AddPlaceAPI, getPlaceAPI etc.
 		responseObject = new ResponseSpecBuilder().expectStatusCode(200).expectContentType(ContentType.JSON).build();
 		
-		//now we are checking it the second parameter in when is post then use post method and so on.
+		//now we are checking it the second parameter in when is post then use post method and so on. Test
 		if(method.contentEquals("Post"))
 		response = RequestObject.when().post(resourceAPI.getResource());
 		else if(method.contentEquals("Get"))
