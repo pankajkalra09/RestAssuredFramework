@@ -27,7 +27,7 @@ Body:
     ]
 }
 HTTP/1.1 200 OK
-Date: Wed, 19 Jun 2024 15:00:03 GMT
+Date: Thu, 20 Jun 2024 15:03:06 GMT
 Server: Apache/2.4.52 (Ubuntu)
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Methods: POST
@@ -40,55 +40,46 @@ Content-Type: application/json;charset=UTF-8
 
 {
     "status": "OK",
-    "place_id": "fd7682646625da3be56e6d2eea9e17b2",
+    "place_id": "5b39516e8efd93fe99bbed9cf5c5ff6b",
     "scope": "APP",
-    "reference": "a6c42fd1249f42e7fbce469c6050e2b9a6c42fd1249f42e7fbce469c6050e2b9",
-    "id": "a6c42fd1249f42e7fbce469c6050e2b9"
+    "reference": "4d0de183532617e1b05f8a1126c9381f4d0de183532617e1b05f8a1126c9381f",
+    "id": "4d0de183532617e1b05f8a1126c9381f"
 }
-Request method:	POST
-Request URI:	https://rahulshettyacademy.com/maps/api/place/add/json?key=qaclick123
+Request method:	GET
+Request URI:	https://rahulshettyacademy.com/maps/api/place/get/json?key=qaclick123&place_id=5b39516e8efd93fe99bbed9cf5c5ff6b
 Proxy:			<none>
 Request params:	<none>
 Query params:	key=qaclick123
+				place_id=5b39516e8efd93fe99bbed9cf5c5ff6b
 Form params:	<none>
 Path params:	<none>
 Headers:		Accept=*/*
 				Content-Type=application/json
 Cookies:		<none>
 Multiparts:		<none>
-Body:
-{
-    "accuracy": 50,
-    "name": "Philip",
-    "phone_number": "(+91) 983 893 3937",
-    "address": "World Class",
-    "website": "http://google.com",
-    "language": "Germen",
-    "location": {
-        "lat": -38.383494,
-        "lng": 33.427362
-    },
-    "types": [
-        "shoe park",
-        "shop"
-    ]
-}
+Body:			<none>
 HTTP/1.1 200 OK
-Date: Wed, 19 Jun 2024 15:00:03 GMT
+Date: Thu, 20 Jun 2024 15:03:07 GMT
 Server: Apache/2.4.52 (Ubuntu)
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Methods: POST
 Access-Control-Max-Age: 3600
 Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With
-Content-Length: 194
+Content-Length: 232
 Keep-Alive: timeout=5, max=100
 Connection: Keep-Alive
 Content-Type: application/json;charset=UTF-8
 
 {
-    "status": "OK",
-    "place_id": "847ac37d8564448ae32833d80aefb9c5",
-    "scope": "APP",
-    "reference": "b9716adebb0f448d236d9f4c811151b0b9716adebb0f448d236d9f4c811151b0",
-    "id": "b9716adebb0f448d236d9f4c811151b0"
+    "location": {
+        "latitude": "-38.383494",
+        "longitude": "33.427362"
+    },
+    "accuracy": "50",
+    "name": "Pankaj",
+    "phone_number": "(+91) 983 893 3937",
+    "address": "World Cross",
+    "types": "shoe park,shop",
+    "website": "http://google.com",
+    "language": "English"
 }

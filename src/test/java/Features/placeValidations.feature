@@ -6,7 +6,7 @@ When user calls "AddPlaceAPI" with "Post" http request
 Then the API call got success with status code 200
 And "status" in response body is "OK"
 And "scope" in response body is "APP"
-
+And Verify place_id created maps to "<Name>" using "getPlaceAPI"
 # we can make use of test data that is add place details using data driven having different set of data.
 # We will be using Examples keyword to declare the scenario to send the different set of data. 
 # Let's say for each add place request some values are dynamically driven from test including Name, Language and Address and remainign all will be static.
@@ -19,9 +19,12 @@ And "scope" in response body is "APP"
 Examples:
 		| 		Name 		| 		Language 		| 		Address		 |
 		|			Pankaj	|		English				| World Cross		 |
-		|     Philip	|		Germen				|	World Class		 |
+	#	|     Philip	|		Germen				|	World Class		 |
 		
 # here when we are passing multiple data, it replaced the value passed in 1st test, but this is not what we wanted.
 # FOr that in the Utils class 'requestSpecification()' runs 2 times and override the data in loggin.txt file.
 # so we set a condition that if req object is null than run the logic else return the req object.
 
+
+#now we want to add 1 more And condition that verify the name we passed in add is same as we capture in GetplaceID.
+#From AddPlaceAPI we will get Place ID and same place ID we will be using in getPlaceAPI and verify if the name we passed in add is same as in Get.

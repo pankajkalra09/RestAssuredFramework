@@ -10,6 +10,8 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
 public class Utils {
@@ -44,5 +46,11 @@ public class Utils {
 		FileInputStream fis = new FileInputStream("E:\\Projects\\BDD_API_FRAMEWORK\\src\\test\\java\\Resources\\globalData.properties");
 		prop.load(fis);
 		return prop.getProperty(key);
+	}
+	
+	public String getJsonPathElement(Response response, String key) {
+		 String ResponseVerification = response.asString();
+		   JsonPath js1 = new JsonPath(ResponseVerification);
+		   return js1.get(key).toString();
 	}
 }

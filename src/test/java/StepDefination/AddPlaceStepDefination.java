@@ -30,6 +30,7 @@ public class AddPlaceStepDefination extends Utils{
 	ResponseSpecification responseObject;
 	Response response;
 	TestDataBuild data = new TestDataBuild();
+	
 	//test data is driven from TestDataBuild class as we are returning the object ap and passed it in RequestObject = given().spec(req).body(data.addPlacePayload());
 	//For test data passing we are using serialization to build our java object based upon the pojo classes.
 	
@@ -70,9 +71,25 @@ public class AddPlaceStepDefination extends Utils{
 	}
 	@Then("{string} in response body is {string}")
 	public void in_response_body_is(String Key, String ExpectedValue) {
-	    String ResponseVerification = response.asString();
-	    JsonPath js1 = new JsonPath(ResponseVerification);
-	   assertEquals(js1.get(Key), ExpectedValue);
+	   
+	    //System.out.println(response);
+	   assertEquals(getJsonPathElement(response, Key), ExpectedValue);
+	}
+	
+	@Then("Verify place_id created maps to {string} using {string}")
+	public void verify_place_id_created_maps_to_using(String expectedName, String resourceused) throws IOException {
+	    //steps 1: Use requestspecification that we have created in utils and prepare a getplaceapi request.
+		
+		//https://rahulshettyacademy.com/maps/api/place/get/json?key=qaclick123&place_id=d30877c5e8257b9eecdcbf5ba2f6740c
+		String placeID = getJsonPathElement(response, "place_id");
+		System.out.println(placeID);
+		 RequestObject = given().spec(requestSpecification()).queryParam("place_id", placeID);
+		 //Step 2: Call the getplace api 
+		 user_calls_with_http_request(resourceused, "Get"); //this will call the getPlaceAPI as resourceused stores the same.
+		 //now the response is stored and we will be capturing the value of Name fromt he same using the common method we have created in utils.
+		 String actualName = getJsonPathElement(response, "name");
+		 //now we have to compare the Name with what we passed in the Examples.
+		assertEquals(actualName, expectedName);
 	}
 
 }
