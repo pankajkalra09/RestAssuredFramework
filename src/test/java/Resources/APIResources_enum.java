@@ -9,9 +9,9 @@ public enum APIResources_enum {
 	AddPlaceAPI("/maps/api/place/add/json"),
 	getPlaceAPI("/maps/api/place/get/json"),
 	deletePlaceAPI("/maps/api/place/delete/json");
+
 	private String resource;
-	
-	APIResources_enum(String resource) {
+	APIResources_enum(String resource) { //resource is storing value of AddPlaceAPI or getPlaceAPI or deletePlaceAPI
 		// TODO Auto-generated constructor stub
 		this.resource=resource;
 	}

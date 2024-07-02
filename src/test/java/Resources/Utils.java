@@ -28,7 +28,7 @@ public class Utils {
 		req = new RequestSpecBuilder().setBaseUri(getGlobalData("baseUrl")).addQueryParam("key", "qaclick123")
 				.addFilter(RequestLoggingFilter.logRequestTo(logObject))
 				.addFilter(ResponseLoggingFilter.logResponseTo(logObject))
-		.setContentType(ContentType.JSON).build();
+				.setContentType(ContentType.JSON).build();
 		//RequestLoggingFilter and ResponseLoggingFilter will be applied to your object req so that our object will have knowledge of
 		//logging filter and it will log everything as part of request/response. and LogRequestTo() will ask that where to log the logs. i.e console or file
 		//we need to build 1 object for printstream class that clearly tells where we are logging to.

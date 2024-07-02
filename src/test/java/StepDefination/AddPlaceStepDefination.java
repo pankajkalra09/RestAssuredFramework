@@ -27,13 +27,12 @@ public class AddPlaceStepDefination extends Utils{
 	
 	//Step definition class should have only core logic. 
 	RequestSpecification RequestObject;
-	ResponseSpecification responseObject;
+	ResponseSpecification ResponseObject;
 	Response response;
 	TestDataBuild data = new TestDataBuild();
 	
 	//test data is driven from TestDataBuild class as we are returning the object ap and passed it in RequestObject = given().spec(req).body(data.addPlacePayload());
 	//For test data passing we are using serialization to build our java object based upon the pojo classes.
-	
 	//instead to creating object of Utils class and use the methods, we will extend that Utils class so that we can call them without creating objects.
 	//now in the spec(req) in "RequestObject = given().spec(req).body(data.addPlacePayload());", we will include the method name as that method is returnig the req object.
 	
@@ -53,9 +52,9 @@ public class AddPlaceStepDefination extends Utils{
 		//Using this we have to simply modify the parameter "AddPlaceAPI" in our feature file and same step definition method will work. We need not to write new step defination for get or delete.
 		//just change the value in feature file and corresponding recourse will get passed in the post method.
 	APIResources_enum resourceAPI = 	APIResources_enum.valueOf(resource);
-	System.out.println(resourceAPI.getResource());
+	//System.out.println(resourceAPI.getResource());
 	//here we are printing the resource we are trying to use based upon the keyword we have used in the feature file. AddPlaceAPI, getPlaceAPI etc.
-		responseObject = new ResponseSpecBuilder().expectStatusCode(200).expectContentType(ContentType.JSON).build();
+		ResponseObject = new ResponseSpecBuilder().expectStatusCode(200).expectContentType(ContentType.JSON).build();
 		
 		//now we are checking it the second parameter in when is post then use post method and so on. Test
 		if(method.contentEquals("Post"))
@@ -79,10 +78,9 @@ public class AddPlaceStepDefination extends Utils{
 	@Then("Verify place_id created maps to {string} using {string}")
 	public void verify_place_id_created_maps_to_using(String expectedName, String resourceused) throws IOException {
 	    //steps 1: Use requestspecification that we have created in utils and prepare a getplaceapi request.
-		
 		//https://rahulshettyacademy.com/maps/api/place/get/json?key=qaclick123&place_id=d30877c5e8257b9eecdcbf5ba2f6740c
 		String placeID = getJsonPathElement(response, "place_id");
-		System.out.println(placeID);
+		//System.out.println(placeID);
 		 RequestObject = given().spec(requestSpecification()).queryParam("place_id", placeID);
 		 //Step 2: Call the getplace api 
 		 user_calls_with_http_request(resourceused, "Get"); //this will call the getPlaceAPI as resourceused stores the same.
