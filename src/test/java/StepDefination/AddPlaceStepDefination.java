@@ -30,6 +30,7 @@ public class AddPlaceStepDefination extends Utils{
 	ResponseSpecification ResponseObject;
 	Response response;
 	TestDataBuild data = new TestDataBuild();
+	static String placeID;
 	
 	//test data is driven from TestDataBuild class as we are returning the object ap and passed it in RequestObject = given().spec(req).body(data.addPlacePayload());
 	//For test data passing we are using serialization to build our java object based upon the pojo classes.
@@ -61,8 +62,6 @@ public class AddPlaceStepDefination extends Utils{
 		response = RequestObject.when().post(resourceAPI.getResource());
 		else if(method.contentEquals("Get"))
 			response = RequestObject.when().get(resourceAPI.getResource());
-		else if(method.contentEquals("Delete"))
-		response = RequestObject.when().delete(resourceAPI.getResource());
 	}
 	@Then("the API call got success with status code {int}")
 	public void the_api_call_got_success_with_status_code(Integer int1) {
@@ -79,7 +78,7 @@ public class AddPlaceStepDefination extends Utils{
 	public void verify_place_id_created_maps_to_using(String expectedName, String resourceused) throws IOException {
 	    //steps 1: Use requestspecification that we have created in utils and prepare a getplaceapi request.
 		//https://rahulshettyacademy.com/maps/api/place/get/json?key=qaclick123&place_id=d30877c5e8257b9eecdcbf5ba2f6740c
-		String placeID = getJsonPathElement(response, "place_id");
+		placeID = getJsonPathElement(response, "place_id");
 		//System.out.println(placeID);
 		 RequestObject = given().spec(requestSpecification()).queryParam("place_id", placeID);
 		 //Step 2: Call the getplace api 
@@ -88,6 +87,11 @@ public class AddPlaceStepDefination extends Utils{
 		 String actualName = getJsonPathElement(response, "name");
 		 //now we have to compare the Name with what we passed in the Examples.
 		assertEquals(actualName, expectedName);
+	}
+	
+	@Given("DeletePlace payload")
+	public void delete_place_payload() throws IOException {
+		RequestObject = given().spec(requestSpecification()).body(data.DelepePlaceData(placeID));
 	}
 
 }

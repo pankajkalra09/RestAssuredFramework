@@ -33,4 +33,10 @@ public class TestDataBuild {
 		//now to pass the ap we create object of the this class and pass it like RequestObject = given().spec(req).body(data.addPlacePayload());
 		return ap;
 	}
+	
+	public String DelepePlaceData(String placeid) {
+		return "{\r\n"
+				+ "    \"place_id\":\""+placeid+"\"\r\n"
+				+ "}";
+	}
 }

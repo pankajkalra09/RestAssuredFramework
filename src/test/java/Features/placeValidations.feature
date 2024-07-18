@@ -28,3 +28,10 @@ Examples:
 
 #now we want to add 1 more And condition that verify the name we passed in add is same as we capture in GetplaceID.
 #From AddPlaceAPI we will get Place ID and same place ID we will be using in getPlaceAPI and verify if the name we passed in add is same as in Get.
+
+
+Scenario: Verify if DeletePlace functionality is working
+Given DeletePlace payload
+When user calls "deletePlaceAPI" with "Post" http request
+Then the API call got success with status code 200
+And "status" in response body is "OK"
