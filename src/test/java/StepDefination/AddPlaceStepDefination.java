@@ -30,7 +30,7 @@ public class AddPlaceStepDefination extends Utils{
 	ResponseSpecification ResponseObject;
 	Response response;
 	TestDataBuild data = new TestDataBuild();
-	static String placeID;
+	public static String placeID;
 	
 	//test data is driven from TestDataBuild class as we are returning the object ap and passed it in RequestObject = given().spec(req).body(data.addPlacePayload());
 	//For test data passing we are using serialization to build our java object based upon the pojo classes.
@@ -42,6 +42,7 @@ public class AddPlaceStepDefination extends Utils{
 		// we will pass the body using POJO classes and Request/Response spec classes.
 		//we can break the request separately and use it further like below and use that object further with when/
 		 RequestObject = given().spec(requestSpecification()).body(data.addPlacePayload(StringName, StringLanguage, StringAddress));
+		 System.out.println("Request Payload: " + data.addPlacePayload(StringName, StringLanguage, StringAddress).toString());
 	}
 	@When("user calls {string} with {string} http request")
 	public void user_calls_with_http_request(String resource, String method) //since we are using 2 parameters in when statement in feature file.
@@ -60,13 +61,24 @@ public class AddPlaceStepDefination extends Utils{
 		//now we are checking it the second parameter in when is post then use post method and so on. Test
 		if(method.contentEquals("Post"))
 		response = RequestObject.when().post(resourceAPI.getResource());
-		else if(method.contentEquals("Get"))
+		else if(method.contentEquals("Get")) {
 			response = RequestObject.when().get(resourceAPI.getResource());
 	}
-	@Then("the API call got success with status code {int}")
-	public void the_api_call_got_success_with_status_code(Integer int1) {
-	   assertEquals(response.statusCode(), 200);
+	System.out.println("Request URI: " + resourceAPI.getResource());
+    System.out.println("Request Method: " + method);
+    System.out.println("Response Status Code: " + response.getStatusCode());
+    System.out.println("Response Body: " + response.getBody().asString());
 	}
+	
+	@Then("the API call got success with status code {int}")
+	public void the_api_call_got_success_with_status_code(Integer statusCode) {
+		System.out.println("Expected Status Code: " + statusCode);
+        System.out.println("Actual Status Code: " + response.getStatusCode());
+		
+		assertEquals(response.statusCode(), (int) statusCode);
+	   
+	}
+	
 	@Then("{string} in response body is {string}")
 	public void in_response_body_is(String Key, String ExpectedValue) {
 	   
@@ -79,7 +91,7 @@ public class AddPlaceStepDefination extends Utils{
 	    //steps 1: Use requestspecification that we have created in utils and prepare a getplaceapi request.
 		//https://rahulshettyacademy.com/maps/api/place/get/json?key=qaclick123&place_id=d30877c5e8257b9eecdcbf5ba2f6740c
 		placeID = getJsonPathElement(response, "place_id");
-		//System.out.println(placeID);
+		System.out.println("Place ID: " + placeID);
 		 RequestObject = given().spec(requestSpecification()).queryParam("place_id", placeID);
 		 //Step 2: Call the getplace api 
 		 user_calls_with_http_request(resourceused, "Get"); //this will call the getPlaceAPI as resourceused stores the same.

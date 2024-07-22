@@ -1,5 +1,6 @@
-Feature: Validating Add Place API's
+Feature: Validating Add Place API
 
+@AddPlaceTag
 Scenario Outline: Verify if place is being succesfully added using AddPlaceAPI
 Given Add Place Payload with "<Name>" "<Language>" "<Address>"
 When user calls "AddPlaceAPI" with "Post" http request
@@ -29,7 +30,7 @@ Examples:
 #now we want to add 1 more And condition that verify the name we passed in add is same as we capture in GetplaceID.
 #From AddPlaceAPI we will get Place ID and same place ID we will be using in getPlaceAPI and verify if the name we passed in add is same as in Get.
 
-
+@DeletePlaceTag
 Scenario: Verify if DeletePlace functionality is working
 Given DeletePlace payload
 When user calls "deletePlaceAPI" with "Post" http request

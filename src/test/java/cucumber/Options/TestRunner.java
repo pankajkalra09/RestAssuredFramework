@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features="src/test/java/Features",glue= {"StepDefination"})
+@CucumberOptions(features="src/test/java/Features", plugin="json:target/jsonReports/cucumber-report.json", glue= {"StepDefination"})
 public class TestRunner {
-
+//, tags="@DeletePlaceTag"
 }
