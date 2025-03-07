@@ -19,7 +19,8 @@ public class GraphQLExample {
 		String episodeName = "PTC";
 		
 		String queryResponse = given().log().all().header("Content-Type", "application/json").
-		body("{\"query\":\"query($characterId:Int!, $locationId:Int!){\\n  character(characterId: $characterId) {\\n    name\\n    gender\\n    id\\n    status\\n  }\\n  location(locationId: $locationId) {\\n    name\\n    dimension\\n  }\\n  episode(episodeId: 872) {\\n    name\\n    air_date\\n    episode\\n  }\\n  characters(filters: {name: \\\"Rahul\\\", type: \\\"Tester\\\"}) {\\n    info {\\n      count\\n    }\\n    result {\\n      id\\n      name\\n      type\\n      location {\\n        id\\n      }\\n    }\\n  }\\n  episodes(filters: {episode: \\\"hulu\\\", name: \\\"tom and jerry\\\"}) {\\n    info {\\n      count\\n      pages\\n    }\\n    result {\\n      name\\n      id\\n    }\\n  }\\n}\\n\",\"variables\":{\"characterId\":"+characterID+",\"locationId\":"+locationID+"}}").when().post("https://rahulshettyacademy.com/gq/graphql").then().extract().response().asString();
+		body("{\"query\":\"query($characterId:Int!, $locationId:Int!){\\n  character(characterId: $characterId) {\\n    name\\n    gender\\n    id\\n    status\\n  }\\n  location(locationId: $locationId) {\\n    name\\n    dimension\\n  }\\n  episode(episodeId: 872) {\\n    name\\n    air_date\\n    episode\\n  }\\n  characters(filters: {name: \\\"Rahul\\\", type: \\\"Tester\\\"}) {\\n    info {\\n      count\\n    }\\n    result {\\n      id\\n      name\\n      type\\n      location {\\n        id\\n      }\\n    }\\n  }\\n  episodes(filters: {episode: \\\"hulu\\\", name: \\\"tom and jerry\\\"}) {\\n    info {\\n      count\\n      pages\\n    }\\n    result {\\n      name\\n      id\\n    }\\n  }\\n}\\n\",\"variables\":{\"characterId\":"+characterID+",\"locationId\":"+locationID+"}}")
+		.when().post("https://rahulshettyacademy.com/gq/graphql").then().extract().response().asString();
 
 		System.out.println(queryResponse);
 		JsonPath js = new JsonPath(queryResponse);
@@ -29,11 +30,12 @@ public class GraphQLExample {
 		//Mutation
 		
 		String mutationResponse = given().log().all().header("Content-Type", "application/json").
-				body("{\"query\":\"mutation($locationName:String!, $episodeName:String!){\\n  createLocation(location: {name:$locationName, type:\\\"North\\\", dimension:\\\"234\\\"}){\\n    id\\n  }\\n  \\n  createEpisode(episode:{name:$episodeName, air_date:\\\"15 Aug\\\", episode:\\\"5\\\"}){\\n    id\\n  }\\n  \\n  deleteLocations(locationIds:[12329]){\\n    locationsDeleted\\n  }\\n}\",\"variables\":{\"locationName\":\"Punjab\",\"episodeName\":\"PTC\"}}").when().post("https://rahulshettyacademy.com/gq/graphql").then().extract().response().asString();
+				body("{\"query\":\"mutation($locationName:String!, $episodeName:String!){\\n  createLocation(location: {name:$locationName, type:\\\"North\\\", dimension:\\\"234\\\"}){\\n    id\\n  }\\n  \\n  createEpisode(episode:{name:$episodeName, air_date:\\\"15 Aug\\\", episode:\\\"5\\\"}){\\n    id\\n  }\\n  \\n  deleteLocations(locationIds:[12329]){\\n    locationsDeleted\\n  }\\n}\",\"variables\":{\"locationName\":\""+locationName+"\",\"episodeName\":\""+episodeName+"\"}}")
+				.when().post("https://rahulshettyacademy.com/gq/graphql").then().extract().response().asString();
 		
 		System.out.println(mutationResponse);
 		JsonPath jsa = new JsonPath(mutationResponse);
-		String ActualNamae = js.getString("data.createLocation.id");
+		String ActualNamae = jsa.getString("data.createLocation.id");
 		System.out.println(ActualNamae);
 		
 	}
